@@ -1,16 +1,16 @@
-using CleanArchitecture.Application.Interfaces;
-using CleanArchitecture.Application.Services;
-using CleanArchitecture.Domain.Interfaces;
-using CleanArchitecture.Infrastructure.Data;
-using CleanArchitecture.Infrastructure.Repositories;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.EntityFrameworkCore;
+using CleanArchitecture.WebApi.Extensions;
+using NLog;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 
+LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
-builder.Services.AddCors();
+builder.Services.ConfigureLoggerService();
+builder.Services.ConfigureCorse();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
@@ -29,7 +29,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseCors("corsPolicy");
 app.UseHttpsRedirection();
 app.UseAuthorization();
