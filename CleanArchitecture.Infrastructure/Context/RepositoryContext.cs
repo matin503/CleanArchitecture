@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CleanArchitecture.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Context;
 
@@ -9,5 +10,6 @@ public class RepositoryContext:DbContext
     {
         
     }
+    public DbSet<Entity> entities { get; set; }
 
 }
