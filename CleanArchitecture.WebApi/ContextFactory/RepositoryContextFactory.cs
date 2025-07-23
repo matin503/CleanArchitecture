@@ -13,7 +13,9 @@ namespace CleanArchitecture.WebApi.ContextFactory
                 .AddJsonFile("appsettings.json")
                 .Build();
             var builder = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseSqlServer(configuration.GetConnectionString("defualtconnection"));
+                .UseSqlServer(configuration.GetConnectionString("defualtconnection"),
+                b=>b.MigrationsAssembly("CleanArchitecture.WebApi"));
+
             return new RepositoryContext(builder.Options);
         }
     }
